@@ -48,7 +48,8 @@ public class ForceGC {
         try {
             for (int i = 0; i < 10; i++) {
                 System.gc();
-                gcCount++;
+                System.gc();
+                gcCount += 2;
                 if (cleanerInvoked.await(100L, TimeUnit.MILLISECONDS)) {
                     return;
                 }

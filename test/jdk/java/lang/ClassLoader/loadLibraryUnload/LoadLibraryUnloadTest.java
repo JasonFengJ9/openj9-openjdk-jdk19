@@ -80,6 +80,7 @@ public class LoadLibraryUnloadTest {
     public static void main(String[] args) throws Throwable {
 
         Process process = runJavaCommand(
+                "-Xdump:system+java+snap:events=vmstop,request=exclusive+prepwalk+serial+preempt",
                 "-Dtest.classes=" + testClassPath,
                 "-Djava.library.path=" + testLibraryPath,
                 "LoadLibraryUnload");

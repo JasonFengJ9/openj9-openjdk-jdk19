@@ -147,6 +147,7 @@ public class LoadLibraryUnload {
                 "All errors have to be UnsatisfiedLinkError");
 
         WeakReference<Class<?>> wClass = new WeakReference<>(clazz);
+        WeakReference<List<Thread>> wThreads = new WeakReference<>(threads);
 
         // release strong refs
         clazz = null;
@@ -155,6 +156,9 @@ public class LoadLibraryUnload {
         ForceGC gc = new ForceGC();
         if (!gc.await(() -> wClass.refersTo(null))) {
             throw new RuntimeException("Class1 hasn't been GC'ed");
+        }
+        if (!gc.await(() -> wThreads.refersTo(null))) {
+            throw new RuntimeException("threads hasn't been GC'ed");
         }
     }
 }
